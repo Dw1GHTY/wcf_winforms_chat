@@ -19,6 +19,5 @@ namespace Client
         {
             _form.UpdateChatRoom(user.ToUpper() + ": " + message);
         }
-
     }
 }

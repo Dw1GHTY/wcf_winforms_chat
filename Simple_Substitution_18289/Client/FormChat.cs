@@ -24,7 +24,7 @@ namespace Client
         {
             InitializeComponent();
 
-            //initialize login
+            
 
             string username = userName;
 
@@ -33,7 +33,7 @@ namespace Client
             pServer = server;  
 
             pServer.Join(username);
-            lblUserName.Text = username;       //Welcome, <username>
+            lblUserName.Text = username;
 
         }
 
@@ -41,12 +41,12 @@ namespace Client
         {
             if (InvokeRequired)
             {
-                // Ako nije UI thread, pozovi sebe na UI threadu
+                
                 Invoke(new Action<string>(UpdateChatRoom), message);
             }
             else
             {
-                // Ažuriraj textbox sa novom porukom
+                
                 txbChatRoom.AppendText(message + Environment.NewLine);
             }
         }

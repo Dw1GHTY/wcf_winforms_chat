@@ -1,0 +1,7 @@
+C:\Users\marko\Desktop\ZI\WCF_WinForms_ChatApp\Simple_Substitution_18289\SimpleSubstitution\bin\Debug\SimpleSubstitution.exe.config
+C:\Users\marko\Desktop\ZI\WCF_WinForms_ChatApp\Simple_Substitution_18289\SimpleSubstitution\bin\Debug\SimpleSubstitution.exe
+C:\Users\marko\Desktop\ZI\WCF_WinForms_ChatApp\Simple_Substitution_18289\SimpleSubstitution\bin\Debug\SimpleSubstitution.pdb
+C:\Users\marko\Desktop\ZI\WCF_WinForms_ChatApp\Simple_Substitution_18289\SimpleSubstitution\obj\Debug\SimpleSubstitution.csproj.AssemblyReference.cache
+C:\Users\marko\Desktop\ZI\WCF_WinForms_ChatApp\Simple_Substitution_18289\SimpleSubstitution\obj\Debug\SimpleSubstitution.csproj.CoreCompileInputs.cache
+C:\Users\marko\Desktop\ZI\WCF_WinForms_ChatApp\Simple_Substitution_18289\SimpleSubstitution\obj\Debug\SimpleSubstitution.exe
+C:\Users\marko\Desktop\ZI\WCF_WinForms_ChatApp\Simple_Substitution_18289\SimpleSubstitution\obj\Debug\SimpleSubstitution.pdb
