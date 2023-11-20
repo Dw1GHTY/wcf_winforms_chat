@@ -7,21 +7,13 @@ using System.Threading.Tasks;
 
 namespace Host
 {
-    // Define a duplex service contract.
-    // A duplex contract consists of two interfaces.
-    // The primary interface is used to send messages from client to service.
-    // The callback interface is used to send messages from service back to client.
-    // IChatCLient allows one to perform multiple operations on a running result.
-    // The result is sent back after each operation on the IChatService interface.
     [ServiceContract]
     public interface IChatClient
     {
-        [OperationContract(IsOneWay = true)]    //ovime se oznacava svaka metoda koja je deo javnog contracta
+        [OperationContract(IsOneWay = true)]    
         void RecieveMessage(string user, string message);
     }
 
-
-    //Callback interfejs -> sadrzi set metoda koje server moze pokrenuti na klijentu
     [ServiceContract(CallbackContract = typeof(IChatClient))]
     public interface IChatService
     {
@@ -31,9 +23,6 @@ namespace Host
         void SendMessage(string message);
     }
 
-    // Service class which implements a duplex service contract.
-    // Use an InstanceContextMode of PerSession to store the result
-    // An instance of the service will be bound to each duplex session
     [ServiceBehavior(ConcurrencyMode=ConcurrencyMode.Single,
                     InstanceContextMode = InstanceContextMode.Single)]
     public class ChatService : IChatService
