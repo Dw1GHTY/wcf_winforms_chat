@@ -15,6 +15,7 @@ namespace Client
     public partial class FormChat : Form
     { 
         ChatServiceClient pServer;
+        private string username;    //current user username
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -26,7 +27,7 @@ namespace Client
 
             
 
-            string username = userName;
+            username = userName;
 
             InstanceContext context = new InstanceContext(new MyCallback(this));
             Proxy.ChatServiceClient server = new Proxy.ChatServiceClient(context);
@@ -55,6 +56,11 @@ namespace Client
         {
             string message;
             message = txbMessageBox.Text;
+
+            //append text to current user
+
+            txbChatRoom.AppendText(username.ToUpper()+ ": " + message + Environment.NewLine);
+            //send to client2
             if (!string.IsNullOrEmpty(message))
                 pServer.SendMessage(message);
 
