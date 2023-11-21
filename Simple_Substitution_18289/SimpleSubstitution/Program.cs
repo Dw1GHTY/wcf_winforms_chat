@@ -29,8 +29,9 @@ namespace SimpleSubstitution
                 return substitutes;
             }
 
-            void Encrypt(string inputMessage) 
+            string Encrypt(string inputMessage) 
             {
+                
                 Dictionary<char, char> substitutes = SubGenerator();
 
                 StringBuilder encryptedText = new StringBuilder();
@@ -46,7 +47,11 @@ namespace SimpleSubstitution
                         encryptedText.Append(letter);
                     }
                 }
+
+                return encryptedText.ToString();
             }
+
+
             void Decrypt(string inputMessage) 
             {
                 StringBuilder decryptedText = new StringBuilder();

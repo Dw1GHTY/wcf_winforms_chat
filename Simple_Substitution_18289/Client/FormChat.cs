@@ -10,23 +10,29 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace Client
 {
     public partial class FormChat : Form
-    { 
+    {
+        SimpleSubstitution simpleSubMachine = 
+        new SimpleSubstitution("abcdefghijklmnopqrstuvwxyz", "zyxwvutsrqponmlkjihgfedcba");
+
         ChatServiceClient pServer;
-        private string username;    //current user username
+        private string username;
+        private bool showCrypted = false;
+
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         public FormChat(string userName)
         {
             InitializeComponent();
 
-            
-
+            txbChatRoomCrypted.Visible = showCrypted;
+            //LOGIN && SERVICE INITIALIZATION
             username = userName;
 
             InstanceContext context = new InstanceContext(new MyCallback(this));
@@ -35,20 +41,19 @@ namespace Client
 
             pServer.Join(username);
             lblUserName.Text = username;
-
         }
 
         public void UpdateChatRoom(string message)
         {
             if (InvokeRequired)
             {
-                
                 Invoke(new Action<string>(UpdateChatRoom), message);
             }
             else
             {
-                
                 txbChatRoom.AppendText(message + Environment.NewLine);
+
+                txbChatRoomCrypted.AppendText(simpleSubMachine.Encrypt(message) + Environment.NewLine);
             }
         }
 
@@ -57,14 +62,26 @@ namespace Client
             string message;
             message = txbMessageBox.Text;
 
-            //append text to current user
+            //append text to current user in standartChatRoom
+            txbChatRoomCrypted.AppendText(username.ToUpper() + ": " + message + Environment.NewLine);
 
-            txbChatRoom.AppendText(username.ToUpper()+ ": " + message + Environment.NewLine);
+            //append text to current user in CryptedChatRoom
+            txbChatRoom.AppendText(username.ToUpper() + ": " + simpleSubMachine.Encrypt(message) + Environment.NewLine);
+
             //send to client2
             if (!string.IsNullOrEmpty(message))
                 pServer.SendMessage(message);
 
             txbMessageBox.Clear();
+        }
+
+        private void cbxToggleCryption_CheckedChanged(object sender, EventArgs e)
+        {
+            showCrypted = !showCrypted;
+            if (showCrypted)
+                txbChatRoomCrypted.Visible = showCrypted;
+            else
+                txbChatRoomCrypted.Visible = showCrypted;
         }
     }
 }

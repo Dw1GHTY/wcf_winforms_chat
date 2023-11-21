@@ -1,0 +1,6 @@
+C:\Users\marko\Desktop\ZI\WCF_WinForms_ChatApp\Simple_Substitution_18289\Simple_Substitution_Library\bin\Debug\Simple_Substitution_Library.dll
+C:\Users\marko\Desktop\ZI\WCF_WinForms_ChatApp\Simple_Substitution_18289\Simple_Substitution_Library\bin\Debug\Simple_Substitution_Library.pdb
+C:\Users\marko\Desktop\ZI\WCF_WinForms_ChatApp\Simple_Substitution_18289\Simple_Substitution_Library\obj\Debug\Encryption_Library.csproj.AssemblyReference.cache
+C:\Users\marko\Desktop\ZI\WCF_WinForms_ChatApp\Simple_Substitution_18289\Simple_Substitution_Library\obj\Debug\Encryption_Library.csproj.CoreCompileInputs.cache
+C:\Users\marko\Desktop\ZI\WCF_WinForms_ChatApp\Simple_Substitution_18289\Simple_Substitution_Library\obj\Debug\Simple_Substitution_Library.dll
+C:\Users\marko\Desktop\ZI\WCF_WinForms_ChatApp\Simple_Substitution_18289\Simple_Substitution_Library\obj\Debug\Simple_Substitution_Library.pdb
