@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,42 +9,21 @@ namespace Client
 {
     public class SimpleSubstitution
     {
-        public string alphabet;
-        public string key;
-
-        public SimpleSubstitution(string alphabet, string key) 
+        public static string alphabet = ConfigurationManager.AppSettings["englishAlphabet"];
+        public static string key = ConfigurationManager.AppSettings["key"];
+        public SimpleSubstitution() 
         {
-            this.alphabet = alphabet;
-            this.key = key;
+            
         }
-
-        public Dictionary<char, char> CryptionSubGenerator()
-        {
-            Dictionary<char, char> cryptionSubstitutes = new Dictionary<char, char>();
-
-            for (int i = 0; i < 26; i++)
-            {
-                cryptionSubstitutes.Add(alphabet[i], key[i]);
-            }
-
-            return cryptionSubstitutes;
-        }
-        public Dictionary<char, char> DecryptionSubGenerator()
-        {
-            Dictionary<char, char> cryptionSubstitutes = new Dictionary<char, char>();
-
-            for (int i = 0; i < 26; i++)
-            {
-                cryptionSubstitutes.Add(key[i], alphabet[i]);
-            }
-
-            return cryptionSubstitutes;
-        }
-
         public string Encrypt(string inputMessage)
         {
-            Dictionary<char, char> substitutes = CryptionSubGenerator();
-
+            //subs
+            Dictionary<char, char> substitutes = new Dictionary<char, char>();
+            for (int i = 0; i < 25; i++)
+            {
+                substitutes.Add(alphabet[i], key[i]);
+            }
+            //encryption
             StringBuilder encryptedText = new StringBuilder();
             foreach (char letter in inputMessage)
             {
@@ -56,13 +36,18 @@ namespace Client
                     encryptedText.Append(letter);
                 }
             }
-
+            
             return encryptedText.ToString();
         }
         public string Decrypt(string cryptedMessage)
         {
-            Dictionary<char, char> substitutes = DecryptionSubGenerator();
-
+            //subs
+            Dictionary<char, char> substitutes = new Dictionary<char, char>();
+            for (int i = 0; i < 25; i++)
+            {
+                substitutes.Add(key[i], alphabet[i]);
+            }
+            //decryption
             StringBuilder decryptedText = new StringBuilder();
             foreach (char letter in cryptedMessage)
             {
@@ -78,7 +63,5 @@ namespace Client
             }
             return decryptedText.ToString();
         }
-
-
     }
 }

@@ -12,3 +12,7 @@ C:\Users\marko\Desktop\ZI\WCF_WinForms_ChatApp\Simple_Substitution_18289\Host\ob
 C:\Users\marko\Desktop\ZI\WCF_WinForms_ChatApp\Simple_Substitution_18289\Host\obj\Debug\Host.csproj.CoreCompileInputs.cache
 C:\Users\marko\Desktop\ZI\WCF_WinForms_ChatApp\Simple_Substitution_18289\Host\obj\Debug\Host.exe
 C:\Users\marko\Desktop\ZI\WCF_WinForms_ChatApp\Simple_Substitution_18289\Host\obj\Debug\Host.pdb
+C:\Users\marko\Desktop\ZI\WCF_WinForms_ChatApp\Simple_Substitution_18289\Host\bin\Debug\Client.exe
+C:\Users\marko\Desktop\ZI\WCF_WinForms_ChatApp\Simple_Substitution_18289\Host\bin\Debug\Client.pdb
+C:\Users\marko\Desktop\ZI\WCF_WinForms_ChatApp\Simple_Substitution_18289\Host\bin\Debug\Client.exe.config
+C:\Users\marko\Desktop\ZI\WCF_WinForms_ChatApp\Simple_Substitution_18289\Host\obj\Debug\Host.csproj.CopyComplete

@@ -9,16 +9,18 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
 
 
 namespace Client
 {
     public partial class FormChat : Form
     {
-        SimpleSubstitution simpleSubMachine = 
-        new SimpleSubstitution("abcdefghijklmnopqrstuvwxyz", "zyxwvutsrqponmlkjihgfedcba");
+
+        public SimpleSubstitution simpleSubMachine = new SimpleSubstitution(); 
 
         ChatServiceClient pServer;
+
         private string username;
         private bool showCrypted = false;
 
@@ -32,9 +34,7 @@ namespace Client
             InitializeComponent();
 
             txbChatRoomCrypted.Visible = showCrypted;
-            //LOGIN && SERVICE INITIALIZATION
             username = userName;
-
             InstanceContext context = new InstanceContext(new MyCallback(this));
             Proxy.ChatServiceClient server = new Proxy.ChatServiceClient(context);
             pServer = server;  
@@ -62,15 +62,14 @@ namespace Client
             string message;
             message = txbMessageBox.Text;
 
-            //append text to current user in standartChatRoom
-            txbChatRoomCrypted.AppendText(username.ToUpper() + ": " + message + Environment.NewLine);
-
-            //append text to current user in CryptedChatRoom
-            txbChatRoom.AppendText(username.ToUpper() + ": " + simpleSubMachine.Encrypt(message) + Environment.NewLine);
-
             //send to client2
             if (!string.IsNullOrEmpty(message))
                 pServer.SendMessage(message);
+
+
+            txbChatRoom.AppendText(username.ToUpper() + ": " + message + Environment.NewLine);
+
+            txbChatRoomCrypted.AppendText(username.ToUpper() + ": " + simpleSubMachine.Encrypt(message) + Environment.NewLine);
 
             txbMessageBox.Clear();
         }
