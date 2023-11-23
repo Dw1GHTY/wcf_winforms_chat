@@ -15,7 +15,6 @@ namespace Client
         public MyCallback(FormChat form)
         {
             _form = form;
-
         }
 
         public void RecieveMessage(string user, string message)

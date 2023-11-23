@@ -68,7 +68,6 @@ namespace Client
 
 
             txbChatRoom.AppendText(username.ToUpper() + ": " + message + Environment.NewLine);
-
             txbChatRoomCrypted.AppendText(username.ToUpper() + ": " + simpleSubMachine.Encrypt(message) + Environment.NewLine);
 
             txbMessageBox.Clear();

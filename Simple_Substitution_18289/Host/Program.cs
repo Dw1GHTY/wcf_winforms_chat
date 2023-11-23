@@ -41,7 +41,6 @@ namespace Host
             _users[connection] = username;
 
         }
-
         public void SendMessage(string message)
         {
             string cryptedMessage = cryptingMachine.Encrypt(message);
@@ -53,13 +52,11 @@ namespace Host
             {
                 if (client == connection)
                     continue;
-                
+
                 client.RecieveMessage(user, cryptedMessage);
             }
-
         }
     }
-
     class Program
     {
         static void Main(string[] args)
