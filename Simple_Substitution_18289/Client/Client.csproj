@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="A52WithCTR.cs" />
     <Compile Include="Connected Services\Proxy\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
