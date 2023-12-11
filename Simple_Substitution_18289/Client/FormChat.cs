@@ -16,6 +16,7 @@ namespace Client
 {
     public partial class FormChat : Form
     {
+        public string cryptionAlgorithm = null;
 
         public SimpleSubstitution simpleSubMachine = new SimpleSubstitution(); 
 
@@ -41,6 +42,10 @@ namespace Client
 
             pServer.Join(username);
             lblUserName.Text = username;
+
+            //dodavanje izbora algoritama u combobox
+            cboxCryptionChoice.Items.Insert(0, "Simple substitution");
+            cboxCryptionChoice.Items.Insert(1, "A5/2");
         }
 
         public void UpdateChatRoom(string message)
@@ -62,13 +67,18 @@ namespace Client
             string message;
             message = txbMessageBox.Text;
 
+            //check selected algorithm | if null then fuck off
+
             //send to client2
             if (!string.IsNullOrEmpty(message))
                 pServer.SendMessage(message);
 
 
             txbChatRoom.AppendText(username.ToUpper() + ": " + message + Environment.NewLine);
+            //if simplesub then this
             txbChatRoomCrypted.AppendText(username.ToUpper() + ": " + simpleSubMachine.Encrypt(message) + Environment.NewLine);
+            //else a5/2
+
 
             txbMessageBox.Clear();
         }
@@ -80,6 +90,11 @@ namespace Client
                 txbChatRoomCrypted.Visible = showCrypted;
             else
                 txbChatRoomCrypted.Visible = showCrypted;
+        }
+
+        private void cboxCryptionChoice_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cryptionAlgorithm = cboxCryptionChoice.SelectedItem.ToString();
         }
     }
 }

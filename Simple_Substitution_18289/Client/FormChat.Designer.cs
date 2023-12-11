@@ -37,6 +37,8 @@
             this.lblWelcome = new System.Windows.Forms.Label();
             this.lblUserName = new System.Windows.Forms.Label();
             this.txbChatRoomCrypted = new System.Windows.Forms.TextBox();
+            this.cboxCryptionChoice = new System.Windows.Forms.ComboBox();
+            this.lblCryption = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txbChatRoom
@@ -56,11 +58,11 @@
             this.cbxToggleCryption.AutoSize = true;
             this.cbxToggleCryption.Font = new System.Drawing.Font("Arial", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxToggleCryption.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.cbxToggleCryption.Location = new System.Drawing.Point(12, 399);
+            this.cbxToggleCryption.Location = new System.Drawing.Point(395, 396);
             this.cbxToggleCryption.Name = "cbxToggleCryption";
-            this.cbxToggleCryption.Size = new System.Drawing.Size(166, 27);
+            this.cbxToggleCryption.Size = new System.Drawing.Size(212, 27);
             this.cbxToggleCryption.TabIndex = 1;
-            this.cbxToggleCryption.Text = "Toggle Cryption";
+            this.cbxToggleCryption.Text = "Toggle Crypted View";
             this.cbxToggleCryption.UseVisualStyleBackColor = true;
             this.cbxToggleCryption.CheckedChanged += new System.EventHandler(this.cbxToggleCryption_CheckedChanged);
             // 
@@ -136,12 +138,34 @@
             this.txbChatRoomCrypted.Size = new System.Drawing.Size(367, 300);
             this.txbChatRoomCrypted.TabIndex = 7;
             // 
+            // cboxCryptionChoice
+            // 
+            this.cboxCryptionChoice.FormattingEnabled = true;
+            this.cboxCryptionChoice.Location = new System.Drawing.Point(177, 399);
+            this.cboxCryptionChoice.Name = "cboxCryptionChoice";
+            this.cboxCryptionChoice.Size = new System.Drawing.Size(157, 21);
+            this.cboxCryptionChoice.TabIndex = 8;
+            this.cboxCryptionChoice.SelectedIndexChanged += new System.EventHandler(this.cboxCryptionChoice_SelectedIndexChanged);
+            // 
+            // lblCryption
+            // 
+            this.lblCryption.AutoSize = true;
+            this.lblCryption.Font = new System.Drawing.Font("Arial", 15F);
+            this.lblCryption.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.lblCryption.Location = new System.Drawing.Point(13, 397);
+            this.lblCryption.Name = "lblCryption";
+            this.lblCryption.Size = new System.Drawing.Size(158, 23);
+            this.lblCryption.TabIndex = 9;
+            this.lblCryption.Text = "Choose cryption:";
+            // 
             // FormChat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(774, 519);
+            this.Controls.Add(this.lblCryption);
+            this.Controls.Add(this.cboxCryptionChoice);
             this.Controls.Add(this.txbChatRoomCrypted);
             this.Controls.Add(this.lblUserName);
             this.Controls.Add(this.lblWelcome);
@@ -169,6 +193,8 @@
         private System.Windows.Forms.Label lblWelcome;
         private System.Windows.Forms.Label lblUserName;
         private System.Windows.Forms.TextBox txbChatRoomCrypted;
+        private System.Windows.Forms.ComboBox cboxCryptionChoice;
+        private System.Windows.Forms.Label lblCryption;
     }
 }
 
