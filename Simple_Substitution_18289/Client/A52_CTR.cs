@@ -213,13 +213,13 @@ namespace Client
             byte[] plaintext = Encoding.UTF8.GetBytes(message);
             byte[] ciphertext = new byte[plaintext.Length];
             byte[] counterBlock = new byte[8];
-            counter = 0; // Resetuj brojač
+            counter = 0; 
 
             for (int i = 0; i < plaintext.Length; i++)
             {
-                GetKeystream(out counterBlock, 8); // Generiši keystream za 8 bitova
+                GetKeystream(out counterBlock, 8); 
                 ciphertext[i] = (byte)(plaintext[i] ^ counterBlock[0]);
-                counter++; // Povećaj brojač za sledeći blok
+                counter++;
             }
 
             return ciphertext;
@@ -228,13 +228,13 @@ namespace Client
         {
             byte[] decrypted = new byte[ciphertext.Length];
             byte[] counterBlock = new byte[8];
-            counter = 0; // Resetuj brojač
+            counter = 0;
 
             for (int i = 0; i < ciphertext.Length; i++)
             {
-                GetKeystream(out counterBlock, 8); // Generiši keystream za 8 bitova
+                GetKeystream(out counterBlock, 8); 
                 decrypted[i] = (byte)(ciphertext[i] ^ counterBlock[0]);
-                counter++; // Povećaj brojač za sledeći blok
+                
             }
 
             return Encoding.UTF8.GetString(decrypted);
@@ -249,9 +249,10 @@ namespace Client
             {
                 Clock(false, 0);
                 keyStream[i] = (byte)GetBit();
+                counter++;
             }
 
-            counter++; // inkrementiranje brojaca
+            
         }
     }
 }

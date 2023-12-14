@@ -32,8 +32,8 @@ namespace Host
 
         Dictionary<IChatClient, string> _users = new Dictionary<IChatClient, string>();
 
-        SimpleSubstitution SimpleSubCryptingMachine = new SimpleSubstitution();  //Simple sub masina za kriptovanje
-        A52_CTR A52CryptingMachine = new A52_CTR();                                      //A5/2 masina za kriptovanje
+        SimpleSubstitution SimpleSubCryptingMachine = new SimpleSubstitution();  
+        A52_CTR A52CryptingMachine = new A52_CTR();                                      
 
         public void Join(string username)
         {
@@ -53,8 +53,8 @@ namespace Host
             #region Kriptovanje_poruka
             if (cryptionAlgorithm == "Simple substitution")
                 cryptedMessage = SimpleSubCryptingMachine.Encrypt(message);
-            //else if (cryptionAlgorithm == "A52")
-            //    cryptedMessage = A52CryptingMachine.Encrypt(message);     //OVDE SI STAO BREEE
+            else if (cryptionAlgorithm == "A5/2")
+                cryptedMessage = BitConverter.ToString(A52CryptingMachine.EncryptCTR(message));     
             #endregion
 
 

@@ -16,7 +16,7 @@ namespace Client
 {
     public partial class FormChat : Form
     {
-        //pamti koji algoritam se primenjuje
+        
         public string cryptionAlgorithm = null;
 
         public SimpleSubstitution simpleSubMachine = new SimpleSubstitution(); 
@@ -30,6 +30,11 @@ namespace Client
         private void Form1_Load(object sender, EventArgs e)
         {
             
+        }
+
+        public void SetCryptionAlgorithm(string cryptionAlgorithm)
+        {
+            cryptionAlgorithm = cryptionAlgorithm; 
         }
 
         public FormChat(string userName)
@@ -50,17 +55,22 @@ namespace Client
             cboxCryptionChoice.Items.Insert(1, "A5/2");
         }
 
-        public void UpdateChatRoom(string message)
+        public void UpdateChatRoom(string message, string cryptionAlgorithm)
         {
             if (InvokeRequired)
             {
-                Invoke(new Action<string>(UpdateChatRoom), message);
+                Invoke(new Action<string, string>(UpdateChatRoom), message);
             }
             else
             {
+                SetCryptionAlgorithm(cryptionAlgorithm); // Postavi vrednost cryptionAlgorithm
+
                 txbChatRoom.AppendText(message + Environment.NewLine);
 
-                txbChatRoomCrypted.AppendText(simpleSubMachine.Encrypt(message) + Environment.NewLine);
+                if (cryptionAlgorithm == "Simple substitution")
+                    txbChatRoomCrypted.AppendText(simpleSubMachine.Encrypt(message) + Environment.NewLine);
+                else if (cryptionAlgorithm == "A5/2")
+                    txbChatRoomCrypted.AppendText(BitConverter.ToString(a52Machine.EncryptCTR(message)));
             }
         }
 
@@ -69,18 +79,18 @@ namespace Client
             string message;
             message = txbMessageBox.Text.ToLower();
 
-            //check selected algorithm | if null then fuck off
+            
             if (cryptionAlgorithm != null)
             {
                 if (!string.IsNullOrEmpty(message))
                 {
-                    pServer.SendMessage(message, cryptionAlgorithm);   //send to client2 + chosen alg info
+                    pServer.SendMessage(message, cryptionAlgorithm); 
 
 
 
                     #region lokalniDeo
 
-                    //nekodirano levi box
+                    
                     txbChatRoom.AppendText(username.ToUpper() + ": " + message + Environment.NewLine);
 
                     
@@ -94,7 +104,6 @@ namespace Client
                         txbChatRoomCrypted.AppendText(username.ToUpper() + ": " + BitConverter.ToString(a52Machine.EncryptCTR(message)) + Environment.NewLine);
                         txbMessageBox.Clear();
                     }
-                        //a5/2
                     #endregion
 
                     

@@ -10,10 +10,13 @@ namespace Client
     public class MyCallback : Proxy.IChatServiceCallback
     {
         private FormChat _form;
+        
 
         #region Decryption_Machines
         SimpleSubstitution SimpleSubDecryptionMachine = new SimpleSubstitution();
         A52_CTR A52DecryptionMachine = new A52_CTR();
+
+        private string _currentCryptionAlgorithm;
         #endregion
 
         public MyCallback(FormChat form)
@@ -21,19 +24,41 @@ namespace Client
             _form = form;
         }
 
+        public void SetCryptionAlgorithm(string cryptionAlgorithm)
+        {
+            _currentCryptionAlgorithm = cryptionAlgorithm;
+        }
+
         public void RecieveMessage(string user, string message, string cryptionAlgorithm)
         {
             string decryptedMessage = null;
 
-            if (cryptionAlgorithm == "Simple substitution")
+            SetCryptionAlgorithm(cryptionAlgorithm);        
+
+            if (_currentCryptionAlgorithm == "Simple substitution")
             {
                 decryptedMessage = SimpleSubDecryptionMachine.Decrypt(message);
-                _form.UpdateChatRoom(user.ToUpper() + ": " + decryptedMessage);
+                _form.UpdateChatRoom(user.ToUpper() + ": " + decryptedMessage, _currentCryptionAlgorithm);
             }
-            else if (cryptionAlgorithm == "A5/2") 
+            else if (_currentCryptionAlgorithm == "A5/2")
             {
-                //decryptedMessage = A52DecryptionMachine.DecryptCTR(message);      //A I OVDE SI STAOO
-                _form.UpdateChatRoom(user.ToUpper() + ": " + decryptedMessage);
+                byte[] messageToBytes = Encoding.UTF8.GetBytes(message);
+                decryptedMessage = A52DecryptionMachine.Decrypt(messageToBytes);
+
+                
+                string[] hexValues = decryptedMessage.Split('-');
+
+                
+                byte[] byteArray = new byte[hexValues.Length];
+                for (int i = 0; i < hexValues.Length; i++)
+                {
+                    byteArray[i] = Convert.ToByte(hexValues[i], 16);
+                }
+
+                
+                string resultString = Encoding.UTF8.GetString(byteArray);
+
+                _form.UpdateChatRoom(user.ToUpper() + ": " + resultString, _currentCryptionAlgorithm);
             }
         }
     }
