@@ -20,3 +20,14 @@ C:\Users\mihma\Desktop\WCF_WinForms_ChatApp\Simple_Substitution_18289\Client\obj
 C:\Users\mihma\Desktop\WCF_WinForms_ChatApp\Simple_Substitution_18289\Client\obj\Debug\Client.csproj.CoreCompileInputs.cache
 C:\Users\mihma\Desktop\WCF_WinForms_ChatApp\Simple_Substitution_18289\Client\obj\Debug\Client.exe
 C:\Users\mihma\Desktop\WCF_WinForms_ChatApp\Simple_Substitution_18289\Client\obj\Debug\Client.pdb
+C:\Users\marko\Desktop\WCF_WinForms_ChatApp\Simple_Substitution_18289\Client\obj\Debug\Client.csproj.AssemblyReference.cache
+C:\Users\marko\Desktop\WCF_WinForms_ChatApp\Simple_Substitution_18289\Client\obj\Debug\Client.FormChat.resources
+C:\Users\marko\Desktop\WCF_WinForms_ChatApp\Simple_Substitution_18289\Client\obj\Debug\Client.FormLogin.resources
+C:\Users\marko\Desktop\WCF_WinForms_ChatApp\Simple_Substitution_18289\Client\obj\Debug\Client.Properties.Resources.resources
+C:\Users\marko\Desktop\WCF_WinForms_ChatApp\Simple_Substitution_18289\Client\obj\Debug\Client.csproj.GenerateResource.cache
+C:\Users\marko\Desktop\WCF_WinForms_ChatApp\Simple_Substitution_18289\Client\obj\Debug\Client.csproj.CoreCompileInputs.cache
+C:\Users\marko\Desktop\WCF_WinForms_ChatApp\Simple_Substitution_18289\Client\obj\Debug\Client.exe
+C:\Users\marko\Desktop\WCF_WinForms_ChatApp\Simple_Substitution_18289\Client\obj\Debug\Client.pdb
+C:\Users\marko\Desktop\WCF_WinForms_ChatApp\Simple_Substitution_18289\Client\bin\Debug\Client.exe.config
+C:\Users\marko\Desktop\WCF_WinForms_ChatApp\Simple_Substitution_18289\Client\bin\Debug\Client.exe
+C:\Users\marko\Desktop\WCF_WinForms_ChatApp\Simple_Substitution_18289\Client\bin\Debug\Client.pdb

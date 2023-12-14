@@ -22,17 +22,17 @@ namespace Client.Proxy {
         System.Threading.Tasks.Task JoinAsync(string username);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChatService/SendMessage")]
-        void SendMessage(string message);
+        void SendMessage(string message, string cryptionAlgorithm);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChatService/SendMessage")]
-        System.Threading.Tasks.Task SendMessageAsync(string message);
+        System.Threading.Tasks.Task SendMessageAsync(string message, string cryptionAlgorithm);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IChatServiceCallback {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChatService/RecieveMessage")]
-        void RecieveMessage(string user, string message);
+        void RecieveMessage(string user, string message, string cryptionAlgorithm);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -71,12 +71,12 @@ namespace Client.Proxy {
             return base.Channel.JoinAsync(username);
         }
         
-        public void SendMessage(string message) {
-            base.Channel.SendMessage(message);
+        public void SendMessage(string message, string cryptionAlgorithm) {
+            base.Channel.SendMessage(message, cryptionAlgorithm);
         }
         
-        public System.Threading.Tasks.Task SendMessageAsync(string message) {
-            return base.Channel.SendMessageAsync(message);
+        public System.Threading.Tasks.Task SendMessageAsync(string message, string cryptionAlgorithm) {
+            return base.Channel.SendMessageAsync(message, cryptionAlgorithm);
         }
     }
 }

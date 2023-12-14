@@ -12,8 +12,8 @@ namespace Host
     [ServiceContract]
     public interface IChatClient
     {
-        [OperationContract(IsOneWay = true)]    
-        void RecieveMessage(string user, string message);
+        [OperationContract(IsOneWay = true)]
+        void RecieveMessage(string user, string message, string cryptionAlgorithm);
     }
 
     [ServiceContract(CallbackContract = typeof(IChatClient))]
@@ -22,17 +22,19 @@ namespace Host
         [OperationContract(IsOneWay = true)]
         void Join(string username);
         [OperationContract(IsOneWay = true)]
-        void SendMessage(string message);
+        void SendMessage(string message, string cryptionAlgorithm);
     }
 
-    [ServiceBehavior(ConcurrencyMode=ConcurrencyMode.Single,
+    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Single,
                     InstanceContextMode = InstanceContextMode.Single)]
     public class ChatService : IChatService
     {
+
         Dictionary<IChatClient, string> _users = new Dictionary<IChatClient, string>();
-        
-        //masina za kriptovanje
-        SimpleSubstitution cryptingMachine = new SimpleSubstitution();
+
+        SimpleSubstitution SimpleSubCryptingMachine = new SimpleSubstitution();  //Simple sub masina za kriptovanje
+        A52_CTR A52CryptingMachine = new A52_CTR();                                      //A5/2 masina za kriptovanje
+
         public void Join(string username)
         {
 
@@ -41,9 +43,22 @@ namespace Host
             _users[connection] = username;
 
         }
-        public void SendMessage(string message)
+        public void SendMessage(string message, string cipherAlgorithm)
         {
-            string cryptedMessage = cryptingMachine.Encrypt(message);
+            message.ToLower();
+            string cryptionAlgorithm = cipherAlgorithm; //prenet algoritam za kripciju
+            string cryptedMessage = null;
+
+
+            #region Kriptovanje_poruka
+            if (cryptionAlgorithm == "Simple substitution")
+                cryptedMessage = SimpleSubCryptingMachine.Encrypt(message);
+            //else if (cryptionAlgorithm == "A52")
+            //    cryptedMessage = A52CryptingMachine.Encrypt(message);     //OVDE SI STAO BREEE
+            #endregion
+
+
+            #region Primanje_poruka
             var connection = OperationContext.Current.GetCallbackChannel<IChatClient>();
             string user;
             if (!_users.TryGetValue(connection, out user))
@@ -53,8 +68,9 @@ namespace Host
                 if (client == connection)
                     continue;
 
-                client.RecieveMessage(user, cryptedMessage);
+                client.RecieveMessage(user, cryptedMessage, cryptionAlgorithm);
             }
+            #endregion
         }
     }
     class Program

@@ -16,9 +16,11 @@ namespace Client
 {
     public partial class FormChat : Form
     {
+        //pamti koji algoritam se primenjuje
         public string cryptionAlgorithm = null;
 
         public SimpleSubstitution simpleSubMachine = new SimpleSubstitution(); 
+        public A52_CTR a52Machine = new A52_CTR();
 
         ChatServiceClient pServer;
 
@@ -65,22 +67,40 @@ namespace Client
         private void btnSend_Click(object sender, EventArgs e)
         {
             string message;
-            message = txbMessageBox.Text;
+            message = txbMessageBox.Text.ToLower();
 
             //check selected algorithm | if null then fuck off
-
-            //send to client2
-            if (!string.IsNullOrEmpty(message))
-                pServer.SendMessage(message);
-
-
-            txbChatRoom.AppendText(username.ToUpper() + ": " + message + Environment.NewLine);
-            //if simplesub then this
-            txbChatRoomCrypted.AppendText(username.ToUpper() + ": " + simpleSubMachine.Encrypt(message) + Environment.NewLine);
-            //else a5/2
+            if (cryptionAlgorithm != null)
+            {
+                if (!string.IsNullOrEmpty(message))
+                {
+                    pServer.SendMessage(message, cryptionAlgorithm);   //send to client2 + chosen alg info
 
 
-            txbMessageBox.Clear();
+
+                    #region lokalniDeo
+
+                    //nekodirano levi box
+                    txbChatRoom.AppendText(username.ToUpper() + ": " + message + Environment.NewLine);
+
+                    
+                    if (cryptionAlgorithm == "Simple substitution")
+                    {
+                        txbChatRoomCrypted.AppendText(username.ToUpper() + ": " + simpleSubMachine.Encrypt(message) + Environment.NewLine);
+                        txbMessageBox.Clear();
+                    }
+                    else if (cryptionAlgorithm == "A5/2") 
+                    {
+                        txbChatRoomCrypted.AppendText(username.ToUpper() + ": " + BitConverter.ToString(a52Machine.EncryptCTR(message)) + Environment.NewLine);
+                        txbMessageBox.Clear();
+                    }
+                        //a5/2
+                    #endregion
+
+                    
+
+                }
+            }
         }
 
         private void cbxToggleCryption_CheckedChanged(object sender, EventArgs e)

@@ -10,17 +10,31 @@ namespace Client
     public class MyCallback : Proxy.IChatServiceCallback
     {
         private FormChat _form;
-        SimpleSubstitution decryptionMachine = new SimpleSubstitution();
+
+        #region Decryption_Machines
+        SimpleSubstitution SimpleSubDecryptionMachine = new SimpleSubstitution();
+        A52_CTR A52DecryptionMachine = new A52_CTR();
+        #endregion
 
         public MyCallback(FormChat form)
         {
             _form = form;
         }
 
-        public void RecieveMessage(string user, string message)
+        public void RecieveMessage(string user, string message, string cryptionAlgorithm)
         {
-            string decryptedMessage = decryptionMachine.Decrypt(message);
-            _form.UpdateChatRoom(user.ToUpper() + ": " + decryptedMessage);
+            string decryptedMessage = null;
+
+            if (cryptionAlgorithm == "Simple substitution")
+            {
+                decryptedMessage = SimpleSubDecryptionMachine.Decrypt(message);
+                _form.UpdateChatRoom(user.ToUpper() + ": " + decryptedMessage);
+            }
+            else if (cryptionAlgorithm == "A5/2") 
+            {
+                //decryptedMessage = A52DecryptionMachine.DecryptCTR(message);      //A I OVDE SI STAOO
+                _form.UpdateChatRoom(user.ToUpper() + ": " + decryptedMessage);
+            }
         }
     }
 }
