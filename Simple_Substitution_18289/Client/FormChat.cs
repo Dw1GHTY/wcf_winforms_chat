@@ -43,10 +43,10 @@ namespace Client
 
             txbChatRoomCrypted.Visible = showCrypted;
             username = userName;
+
             InstanceContext context = new InstanceContext(new MyCallback(this));
             Proxy.ChatServiceClient server = new Proxy.ChatServiceClient(context);
-            pServer = server;  
-
+            pServer = server;
             pServer.Join(username);
             lblUserName.Text = username;
 
@@ -73,45 +73,51 @@ namespace Client
                     txbChatRoomCrypted.AppendText(BitConverter.ToString(a52Machine.EncryptCTR(message)));
             }
         }
-
-        private void btnSend_Click(object sender, EventArgs e)
+        private void SendChat() 
         {
             string message;
             message = txbMessageBox.Text.ToLower();
 
-            
             if (cryptionAlgorithm != null)
             {
                 if (!string.IsNullOrEmpty(message))
                 {
-                    pServer.SendMessage(message, cryptionAlgorithm); 
+                    pServer.SendMessage(message, cryptionAlgorithm);
 
-
-
-                    #region lokalniDeo
-
-                    
                     txbChatRoom.AppendText(username.ToUpper() + ": " + message + Environment.NewLine);
-
-                    
                     if (cryptionAlgorithm == "Simple substitution")
                     {
                         txbChatRoomCrypted.AppendText(username.ToUpper() + ": " + simpleSubMachine.Encrypt(message) + Environment.NewLine);
                         txbMessageBox.Clear();
                     }
-                    else if (cryptionAlgorithm == "A5/2") 
+                    else if (cryptionAlgorithm == "A5/2")
                     {
                         txbChatRoomCrypted.AppendText(username.ToUpper() + ": " + BitConverter.ToString(a52Machine.EncryptCTR(message)) + Environment.NewLine);
-                        txbMessageBox.Clear();
+                        //txbMessageBox.Clear();
                     }
-                    #endregion
-
-                    
-
                 }
             }
         }
 
+        private void btnSend_Click(object sender, EventArgs e)
+        {
+            SendChat();
+            txbMessageBox.Clear();
+        }
+        private void btnFileWindow_Click(object sender, EventArgs e)
+        {
+            var FormFileTransfer = new FormFileTransfer();
+            FormFileTransfer.Show();
+        }
+
+        private void txbMessageBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SendChat();
+                txbMessageBox.Clear();
+            }
+        }
         private void cbxToggleCryption_CheckedChanged(object sender, EventArgs e)
         {
             showCrypted = !showCrypted;
@@ -120,7 +126,6 @@ namespace Client
             else
                 txbChatRoomCrypted.Visible = showCrypted;
         }
-
         private void cboxCryptionChoice_SelectedIndexChanged(object sender, EventArgs e)
         {
             cryptionAlgorithm = cboxCryptionChoice.SelectedItem.ToString();

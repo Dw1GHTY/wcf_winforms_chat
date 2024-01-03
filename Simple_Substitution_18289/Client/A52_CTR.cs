@@ -240,7 +240,6 @@ namespace Client
             return Encoding.UTF8.GetString(decrypted);
         }
 
-
         public void GetKeystream(out byte[] keyStream, int length)
         {
             keyStream = new byte[length];

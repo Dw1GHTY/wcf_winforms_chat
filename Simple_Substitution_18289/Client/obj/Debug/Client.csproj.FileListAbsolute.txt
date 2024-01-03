@@ -31,3 +31,4 @@ C:\Users\marko\Desktop\WCF_WinForms_ChatApp\Simple_Substitution_18289\Client\obj
 C:\Users\marko\Desktop\WCF_WinForms_ChatApp\Simple_Substitution_18289\Client\bin\Debug\Client.exe.config
 C:\Users\marko\Desktop\WCF_WinForms_ChatApp\Simple_Substitution_18289\Client\bin\Debug\Client.exe
 C:\Users\marko\Desktop\WCF_WinForms_ChatApp\Simple_Substitution_18289\Client\bin\Debug\Client.pdb
+C:\Users\marko\Desktop\ZI\WCF_WinForms_ChatApp\Simple_Substitution_18289\Client\obj\Debug\Client.FormFileTransfer.resources
