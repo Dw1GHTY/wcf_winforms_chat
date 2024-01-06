@@ -12,12 +12,15 @@ using System.Windows.Forms;
 
 namespace Client
 {
-
     public partial class FormFileTransfer : Form
     {
-        public string cryptionAlgorithm = null;
+        A52_CTR a52_machine = new A52_CTR();
+        SimpleSubstitution simpleSubMachine =  new SimpleSubstitution();
 
+        public string cryptionAlgorithm = null;
         private string fileName = null;
+        private string fileContent = null;
+        private string fileContentCrypted = null;
 
         public FormFileTransfer()
         {
@@ -29,27 +32,27 @@ namespace Client
             cboxCryptionChoice.Items.Insert(1, "A5/2");
         }
 
-        //biranje fajla
+
         private void btnChooseFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
-            // Postavite opcije po potrebi
             openFileDialog.Title = "Izaberite fajl";
             openFileDialog.Filter = "Svi fajlovi (*.*)|*.*";
 
-            // Prikazivanje File Explorer dijaloga
+            // File Explorer
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string fileName = Path.GetFileName(openFileDialog.FileName);
-                string fileContent = ReadFile(openFileDialog.FileName);
+                fileContent = ReadFile(openFileDialog.FileName);
 
-                SetText(fileContent);
+                SetFilePreviewText(fileContent);
                 SetFileName(fileName);
             }
+
         }
 
-        private void SetText(string text) 
+        private void SetFilePreviewText(string text) 
         {
             txbFilePreview.Text = text;
         }
@@ -62,7 +65,6 @@ namespace Client
         {
             cryptionAlgorithm = cboxCryptionChoice.SelectedItem.ToString();
         }
-
         private string ReadFile(string filePath)
         {
             try
@@ -77,6 +79,49 @@ namespace Client
             {
                 MessageBox.Show($"Greška prilikom čitanja fajla: {ex.Message}", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return string.Empty;
+            }
+        }
+        private void SaveCryptedFile(string cryptedContent)
+        {
+            // Provera da li je prethodni fajl učitan
+            if (string.IsNullOrEmpty(fileName))
+            {
+                MessageBox.Show("No file loaded.", "Error");
+                return;
+            }
+
+            try
+            {
+                Console.WriteLine("File path: " + fileName);
+
+                // StreamWriter
+                using (StreamWriter sw = new StreamWriter(fileName, false))
+                {
+                    sw.Write(cryptedContent.ToLower());       //dbg: sw = {System.IO.StreamWriter}
+                }
+
+                MessageBox.Show("File successfully encrypted and saved.", "Success");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error saving encrypted file: {ex.Message}", "Error");
+            }
+        }
+        private void btnEncryptFile_Click(object sender, EventArgs e)
+        {
+            if (cryptionAlgorithm == "Simple substitution")
+            {
+                fileContentCrypted = simpleSubMachine.Encrypt(fileContent);
+                SaveCryptedFile(fileContentCrypted);
+            }
+            else if (cryptionAlgorithm == "A5/2")
+            {
+                fileContentCrypted = BitConverter.ToString(a52_machine.Encrypt(fileContent));
+                SaveCryptedFile(fileContentCrypted);
+            }
+            else 
+            {
+                MessageBox.Show("Select encryption algorithm", "Error");
             }
         }
     }
