@@ -1,5 +1,5 @@
 # WCF_WinForms_ChatApp
-Simple WinForms  chat application with WCF FULL DUPLEX service.
+Simple WinForms chat application with optional text-encryption options implemented via WCF FULL DUPLEX service.
 
 
 HOW TO USE:
