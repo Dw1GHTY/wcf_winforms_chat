@@ -2,7 +2,7 @@
 Simple WinForms chat application with optional text-encryption options implemented via WCF FULL DUPLEX service.
 
 
-HOW TO USE:
+## HOW TO USE:
   
 1.Start "Host.exe"  
 2.Start 2 instances of "Client.exe"  
@@ -12,3 +12,9 @@ HOW TO USE:
 5.2 Type messages in lower text box and click "SEND" to send the message  
 6.Check the "Toggle Cryption" checkbox to enable Crypted view  
 7.Enjoy!
+
+## IF PROBLEMS OCCUR
+
+RUN COMMAND IN CMD (RUN AS ADMINISTRATOR):  
+  
+**netsh http add urlacl url=http://+:9000/ user=DOMAIN\username**
